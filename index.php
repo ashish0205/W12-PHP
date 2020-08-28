@@ -1,76 +1,68 @@
-<!DOCTYPE html>
-<html lang='en'>
-
-<head>
-    <title>First php page</title>
-</head>
-
-<body>
 <?php
-/*
-//php is case sensitive
 
-$x = 10;
-$y = 10;
+require_once 'web_page.php';
+require_once 'tools.php';
 
-echo 'x='.$x.'<br>'; // by . we concatinate
-//$x = 'sss'; //variable decleration
-var_dump($y);
-$arr = [22, 33, 33, 44, 55, 55];
-echo $arr[3].'<br>';
-echo "x= $x";
-$arr[6] = 67;
-array_push($arr, 2888);
-$last = array_pop($arr);
-var_dump($arr);
+if (isset($_GET['op'])) {
+    $op = $_GET['op'];
+} else {
+    $op = 0;
+}
 
-echo $last;
+switch ($op) {
+    case 100:
+        Product_Display();
+        break;
 
-echo 'Helo World<br>';
-echo 'ashish sharma<br>';
+    default:
+        http_response_code(400); //bad request
+        break;
+}
 
-function hello()
+function product_display()
 {
-    global $x,$y; // for global dcleraing variables
-    echo $x + $y;
+    // echo 'yes';
+    $product = [
+    'id' => 0,
+    'name' => 'BlackDress',
+    'descrition' => 'Little black evening dress',
+    'price' => 99.99,
+];
+    $page = new web_page();
+    $page->title = $product['name'];
+    $page->content = array_display($product);
+    $page->render();
 }
 
-hello();
-*/
+// function array_display($array_name)
+// {
+//     echo'<style> td,th{border:1px solid black;}</style>';
+//     echo'<table>';
+//     echo'<tr>';
+//     echo'<th>index</th><th>Value</th>';
+//     echo'</tr>';
 
-$position = [22.3, 44, 33.3, '2h35m12s']; //x,y,z coordinates
-
-echo 'x='.$position[0].'<br>';
-echo 'y='.$position[1].'<br>';
-echo 'z='.$position[2].'<br>';
-echo 'time='.$position[3].'<br>';
-
-echo 'for calculating lenght of array'.count($position).'<br>';
-//for loop
-
-// for ($i = 0; $i < count($position); ++$i) {
-//     echo $position[$i].'<br>';
+//     foreach ($array_name as $key => $value) {
+//         echo'<tr>';
+//         echo'<td>'.$key.'</td>';
+//         echo'<td>'.$value.'</td>';
+//         echo'</tr>';
+//     }
+//     echo'</table>';
 // }
+// array_display($product);
+// $winning_numbers = [33, 46, 23, 1, 67];
+// array_display($winning_numbers);
+//die();
 
-foreach ($position as $one_values) {
-    echo $one_values.'<br>';
+require_once 'web_page.php';
+function HomePage()
+{
+    $home_page = new web_page();
+
+    $home_page->title = 'ElectricScooter.com Home-welcome!';
+    $home_page->content = '<h1>welcome my frend!</h1>';
+    $home_page->render();
 }
-
-$position = ['x' => 22.3, 'y' => 44, 'z' => 33.3, 'time' => '2h35m12s'];        //Associative array
-echo 'x='.$position['x'].'<br>';
-echo 'y='.$position['y'].'<br>';
-echo 'z='.$position['z'].'<br>';
-echo 'time='.$position['time'].'<br>';
-//this will not work with for loop we have to make it through for each
-
-// for ($i = 0; $i < count($position); ++$i) {
-//     echo $position[$i].'<br>';
-// }
-
-foreach ($position as $one_values) {
-    echo $one_values.'<br>';
-}
-
-?>
-</body>
-</html>
+HomePage();
+echo'test';
